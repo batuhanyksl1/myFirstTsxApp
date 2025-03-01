@@ -13,6 +13,16 @@ import colors from '@/color';
 type ButtonSize = 'xsm' | 'sm' | 'md' | 'lg' | 'xlg';
 type ButtonVariant = 'filled' | 'outline' | 'ghost' | 'accept' | 'decline';
 
+interface IButtony {
+  loading?: boolean;
+  disabled?: boolean;
+  children?: React.ReactNode;
+  size?: ButtonSize;
+  variant?: ButtonVariant;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+}
+
 export default function Buttony({
   loading = false,
   disabled = false,
@@ -21,15 +31,9 @@ export default function Buttony({
   variant = 'filled',
   style,
   textStyle,
-}: {
-  loading?: boolean;
-  disabled?: boolean;
-  children?: React.ReactNode;
-  size?: ButtonSize;
-  variant?: ButtonVariant;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
-}) {
+}: IButtony) {
+
+
   const sizeStyles: Record<
     ButtonSize,
     { height: number; fontSize: number; padding: number }
@@ -40,6 +44,8 @@ export default function Buttony({
     lg: { height: 52, fontSize: 18, padding: 14 },
     xlg: { height: 60, fontSize: 20, padding: 16 },
   };
+
+  
 
   const colorScheme = useColorScheme();
 
