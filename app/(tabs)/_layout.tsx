@@ -1,5 +1,5 @@
 import { Link, Tabs } from 'expo-router';
-import tabNames from '@/assets/texts/tabNames';
+import tabNames from '@/constants/texts/tabNames';
 import { useGlobalContext, GlobalProvider } from '@/context/GlobalContext';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';

@@ -22,7 +22,7 @@ type GlobalProviderProps = {
 export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 const [currentLanguage, setCurrentLanguage] =
-  useState<currentLanguageTypes>('en');
+  useState<currentLanguageTypes>('tr');
   return (
     <GlobalContext.Provider
       value={{ isDarkMode, setIsDarkMode, currentLanguage, setCurrentLanguage }}
