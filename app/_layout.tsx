@@ -1,15 +1,24 @@
 import React from 'react';
 import { Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
+import { GlobalProvider } from '@/context/GlobalContext';
 
 const _layout = () => {
-  const colorScheme = useColorScheme
-  return (
-    <Stack  screenOptions={{headerShown: false}}>
+  const colorScheme = useColorScheme();
 
-      <Stack.Screen name="(tabs)" options={{headerShown: false}} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+  return (
+    <GlobalProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="/app/(tabs)"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen name="/app/(stack)" />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </GlobalProvider>
   );
 };
 

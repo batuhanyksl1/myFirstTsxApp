@@ -1,17 +1,13 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-type currentLanguageTypes = 'en' | 'es' | 'tr';
+type currentLanguageTypes = 'en' | 'es' | 'tr' | 'fr' | 'rs' | 'it' | 'de';
 
 interface IGlobalContext {
-  isDarkMode: boolean;
-  setIsDarkMode: (value: boolean) => void;
   currentLanguage: currentLanguageTypes;
   setCurrentLanguage: (lang: currentLanguageTypes) => void; // dönüş tipi eklendi
 }
 const GlobalContext = createContext<IGlobalContext>({
-  isDarkMode: false,
-  setIsDarkMode: () => {},
-  currentLanguage: 'en',
+  currentLanguage: 'tr',
   setCurrentLanguage: () => {},
 });
 
@@ -20,13 +16,10 @@ type GlobalProviderProps = {
 };
 
 export const GlobalProvider = ({ children }: GlobalProviderProps) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-const [currentLanguage, setCurrentLanguage] =
-  useState<currentLanguageTypes>('tr');
+  const [currentLanguage, setCurrentLanguage] =
+    useState<currentLanguageTypes>('tr');
   return (
-    <GlobalContext.Provider
-      value={{ isDarkMode, setIsDarkMode, currentLanguage, setCurrentLanguage }}
-    >
+    <GlobalContext.Provider value={{ currentLanguage, setCurrentLanguage }}>
       {children}
     </GlobalContext.Provider>
   );

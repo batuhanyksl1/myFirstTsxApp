@@ -7,12 +7,18 @@ export default function Layout (){
     return (
       <Stack>
         <Stack.Screen
-          name={stackNames.profile[currentLanguage]}
-          options={{ headerShown: true, title: 'Profile' }}
+          name={'profile'}
+          options={{
+            headerShown: true,
+            title: stackNames.profile[currentLanguage],
+          }}
         />
         <Stack.Screen
-          name={stackNames.settings[currentLanguage]}
-          options={{ headerShown: false }}
+          name={'settings'}
+          options={{
+            headerShown: true,
+            title: stackNames.settings[currentLanguage],
+          }}
         />
       </Stack>
     );

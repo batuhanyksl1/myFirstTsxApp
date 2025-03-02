@@ -3,17 +3,18 @@ import { ScrollView, Text } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useGlobalContext } from '../../context/GlobalContext'; // Global context'in bulunduğu dosyanın yolunu doğru ayarla
 import languages from '@/constants/keys/languages';
+import { useColorScheme } from 'react-native';
 
 const settings = () => {
-  const { currentLanguage, isDarkMode, setCurrentLanguage } =
+  const { currentLanguage, setCurrentLanguage } =
     useGlobalContext();
   const [selectedValue, setSelectedValue] = useState(currentLanguage);
-
+const colorScheme = useColorScheme()
   return (
     <ScrollView
-      style={{ padding: 20, backgroundColor: isDarkMode ? '#333' : '#fff' }}
+      style={{ padding: 20, backgroundColor: colorScheme ? '#333' : '#fff' }}
     >
-      <Text style={{ color: isDarkMode ? '#fff' : '#000' }}>
+      <Text style={{ color: colorScheme === 'dark' ? "white" : '#000' }}>
         Choose a programming language:
       </Text>
 
@@ -29,7 +30,7 @@ const settings = () => {
         ))}
       </Picker>
 
-      <Text style={{ color: isDarkMode ? '#fff' : '#000' }}>
+      <Text style={{ color: colorScheme === 'dark' ? '#fff' : '#000' }}>
         Selected: {selectedValue}
         selecttedLanguage: {currentLanguage}
       </Text>
