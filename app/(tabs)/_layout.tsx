@@ -30,24 +30,24 @@ function TabLayout() {
         },
 
         headerTitleAlign: 'center',
-        headerRight: () => (
-          <Link href="/(stack)/settings">
-            <Ionicons
-              name="settings-sharp"
-              size={27}
-              color={colorScheme === 'dark' ? 'white' : 'black'}
-            />
-          </Link>
-        ),
-        headerLeft: () => (
-          <Link href="/(stack)/profile">
-            <MaterialIcons
-              name="account-circle"
-              size={27}
-              color={colorScheme === 'dark' ? 'white' : 'black'}
-            />
-          </Link>
-        ),
+        // headerRight: () => (
+        //   <Link href="/(stack)/settings">
+        //     <Ionicons
+        //       name="settings-sharp"
+        //       size={27}
+        //       color={colorScheme === 'dark' ? 'white' : 'black'}
+        //     />
+        //   </Link>
+        // ),
+        // headerLeft: () => (
+        //   <Link href="/(stack)/profile">
+        //     <MaterialIcons
+        //       name="account-circle"
+        //       size={27}
+        //       color={colorScheme === 'dark' ? 'white' : 'black'}
+        //     />
+        //   </Link>
+        // ),
         headerRightContainerStyle: {
           paddingHorizontal: 7,
           paddingBottom: 5,
@@ -59,7 +59,7 @@ function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="/(explore)/index"
+        name="index"
         options={{
           title: tabNames.explore[currentLanguage],
           tabBarIcon: () => (
@@ -72,12 +72,12 @@ function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="/(dreams)/index"
+        name="add"
         options={{
           title: tabNames.addDream[currentLanguage],
           tabBarIcon: () => (
-            <AntDesign
-              name="plus"
+            <MaterialIcons
+              name="bedtime"
               size={24}
               color={colorScheme === 'dark' ? 'white' : 'black'}
             />
@@ -85,7 +85,7 @@ function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="/(addDream)/index"
+        name="dreams"
         options={{
           title: tabNames.yourDreams[currentLanguage],
           tabBarItemStyle: {},

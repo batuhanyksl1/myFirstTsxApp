@@ -10,12 +10,12 @@ const _layout = () => {
     <GlobalProvider>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
-          name="/app/(tabs)"
+          name="(tabs)"
           options={{
             headerShown: false,
           }}
         />
-        <Stack.Screen name="/app/(stack)" />
+        <Stack.Screen name="(stack)" />
         <Stack.Screen name="+not-found" />
       </Stack>
     </GlobalProvider>
