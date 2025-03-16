@@ -11,13 +11,6 @@ interface IInfoBox {
 }
 
 function InfoBox({ header, content, writer }: IInfoBox) {
-  const [fontsLoaded] = useFonts({
-    'Play-Regular': require('@/assets/fonts/Lilita_One,Play,Roboto/Play/Play-Regular.ttf'),
-    'Atma-Bold': require('@/assets/fonts/Atma-Bold.ttf'),
-    'Atma-Light': require('@/assets/fonts/Atma-Light.ttf'),
-    'Atma-Medium': require('@/assets/fonts/Atma-Medium.ttf'),
-    'Atma-Regular': require('@/assets/fonts/Atma-Regular.ttf'),
-  });
 
   return (
     <View style={styles.container}>
