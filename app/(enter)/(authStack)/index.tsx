@@ -485,6 +485,7 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import SomniaLogo from '@/components/SomniaLogo';
 import {
   useFonts,
   Poppins_400Regular,
@@ -586,14 +587,15 @@ const LoginScreen: React.FC = () => {
           <View style={styles.content}>
             {/* Logo ve Başlık */}
             <View style={styles.logoContainer}>
-               <LinearGradient
+               {/* <LinearGradient
                 colors={['#e0e7ff', '#dce4ff']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.logoCircle}
               >
                 <Text style={styles.logoText}>R</Text>
-              </LinearGradient>
+              </LinearGradient> */}
+<SomniaLogo></SomniaLogo>
               <Text style={styles.appTitle}>Rüya Danışmanı</Text>
               <Text style={styles.appSubtitle}>
                 Rüya yorumları ve kişisel danışma
