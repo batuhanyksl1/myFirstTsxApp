@@ -6,14 +6,18 @@ import {
   useColorScheme,
   ViewStyle,
   ActivityIndicator,
+  View,
 } from 'react-native';
 import * as React from 'react';
 import colors from '@/color';
+import { Link } from 'expo-router';
+import BLink from './BLink';
 
 type ButtonSize = 'xsm' | 'sm' | 'md' | 'lg' | 'xlg';
 type ButtonVariant = 'filled' | 'outline' | 'ghost' | 'accept' | 'decline';
 
-interface IButtony {
+interface IPushButton {
+  href: string;
   loading?: boolean;
   disabled?: boolean;
   children?: React.ReactNode;
@@ -23,7 +27,8 @@ interface IButtony {
   textStyle?: TextStyle;
 }
 
-export default function Buttony({
+export default function PushButton({
+  href,
   loading = false,
   disabled = false,
   children,
@@ -31,9 +36,7 @@ export default function Buttony({
   variant = 'filled',
   style,
   textStyle,
-}: IButtony) {
-
-
+}: IPushButton) {
   const sizeStyles: Record<
     ButtonSize,
     { height: number; fontSize: number; padding: number }
@@ -44,8 +47,6 @@ export default function Buttony({
     lg: { height: 52, fontSize: 18, padding: 14 },
     xlg: { height: 60, fontSize: 20, padding: 16 },
   };
-
-  
 
   const colorScheme = useColorScheme();
 
@@ -104,32 +105,36 @@ export default function Buttony({
   }
 
   return (
-    <Pressable
-      style={[
-        {
-          borderRadius: 25,
-          height: sizeStyles[size].height,
-          paddingHorizontal: sizeStyles[size].padding,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-        getVariantStyle(),
-        style, // Ensure this is last to override other styles if provided
-      ]}
-    >
-      <Text
+    <Link href={href as any}>
+      <Pressable
         style={[
           {
-            fontSize: sizeStyles[size].fontSize,
-            color: getTextColor(),
+            borderRadius: 25,
+            height: sizeStyles[size].height,
+            paddingHorizontal: sizeStyles[size].padding,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
           },
-          textStyle,
+          getVariantStyle(),
+          style, // Ensure this is last to override other styles if provided
         ]}
       >
-        {loading ? <ActivityIndicator /> : children}
-      </Text>
-    </Pressable>
+        <View style={style}>
+          <Text
+            style={[
+              {
+                fontSize: sizeStyles[size].fontSize,
+                color: getTextColor(),
+              },
+              textStyle,
+            ]}
+          >
+            {loading ? <ActivityIndicator /> : children}
+          </Text>
+        </View>
+      </Pressable>
+    </Link>
   );
 }
 

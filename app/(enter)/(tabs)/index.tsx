@@ -10,8 +10,9 @@ import {
   StatusBar,
 } from 'react-native';
 import { Ionicons, Feather, AntDesign } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 
-const DiscoverScreen = () => {
+const index = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#7B68EE" />
@@ -19,7 +20,9 @@ const DiscoverScreen = () => {
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Keşfet</Text>
-
+<Link push href={'/(enter)/(tabs)/HomeScreen'}>
+HOLALALALALA
+</Link>
         {/* Search Bar */}
         <View style={styles.searchContainer}>
           <View style={styles.searchBar}>
@@ -544,3 +547,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default index;
