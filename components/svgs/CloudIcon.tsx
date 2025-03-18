@@ -1,4 +1,4 @@
-export const cloudSvg = `
+const CloudIcon = `
 <svg width="200" height="120" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M160 50C155 30 140 15 120 15C105 15 92 25 85 40C83 39.8 81 39.5 79 39.5C60 39.5 45 55 45 75C45 95 60 110 80 110H170C185 110 200 95 200 80C200 65 185 50 170 50" fill="url(#cloud_gradient)"/>
   <defs>
@@ -9,3 +9,5 @@ export const cloudSvg = `
   </defs>
 </svg>
 `;
+
+export default CloudIcon;

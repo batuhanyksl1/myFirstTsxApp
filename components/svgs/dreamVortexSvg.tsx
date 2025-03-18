@@ -1,4 +1,4 @@
-export const dreamVortexSvg = `
+ const DreamVortexSvg = `
 <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g filter="url(#filter0_f_12_34)">
     <path d="M200 50C200 50 140 120 140 200C140 280 200 350 200 350C200 350 260 280 260 200C260 120 200 50 200 50Z" fill="url(#paint0_radial_12_34)"/>
@@ -25,3 +25,5 @@ export const dreamVortexSvg = `
     </radialGradient>
   </defs>
 </svg>`;
+
+export default DreamVortexSvg

@@ -13,10 +13,12 @@ import {
 } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import { BlurView } from 'expo-blur';
-import { dreamVortexSvg } from '@/components/svgs/dreamVortexSvg';
-import { moonSvg } from '@/components/svgs/moonSvg';
-import { cloudSvg } from '@/components/svgs/cloudSvg';
-import { starVariants } from '@/components/svgs/starVariants';
+import {
+  DreamVortexSvg,
+  MoonSvg,
+  StarVariants,
+} from '@/components/svgs';
+
 import { Link, useRouter } from 'expo-router';
 // Dimensions
 const { width, height } = Dimensions.get('window');
@@ -50,7 +52,6 @@ const DreamWelcomeScreen = () => {
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const router = useRouter();
 
-
   // For particle effects
   const [particles, setParticles] = useState<
     {
@@ -73,7 +74,7 @@ const DreamWelcomeScreen = () => {
       size: Math.random() * 4 + 2,
       opacity: Math.random() * 0.5 + 0.3,
       speed: Math.random() * 1 + 0.5,
-      variant: Math.floor(Math.random() * starVariants.length),
+      variant: Math.floor(Math.random() * StarVariants.length),
     }));
     setParticles(initialParticles);
 
@@ -253,7 +254,7 @@ const DreamWelcomeScreen = () => {
           ]}
         >
           <SvgXml
-            xml={starVariants[particle.variant]}
+            xml={StarVariants[particle.variant]}
             width={particle.size * 2}
             height={particle.size * 2}
           />
@@ -269,7 +270,7 @@ const DreamWelcomeScreen = () => {
           },
         ]}
       >
-        <SvgXml xml={dreamVortexSvg} width={width} height={width} />
+        <SvgXml xml={DreamVortexSvg} width={width} height={width} />
       </Animated.View>
 
       {/* Floating objects */}
@@ -311,7 +312,7 @@ const DreamWelcomeScreen = () => {
           },
         ]}
       >
-        <SvgXml xml={cloudSvg} width={200} height={100} />
+        <SvgXml xml={StarVariants[0]} width={200} height={100} />
       </Animated.View>
 
       <Animated.View
@@ -323,7 +324,7 @@ const DreamWelcomeScreen = () => {
           },
         ]}
       >
-        <SvgXml xml={cloudSvg} width={150} height={75} />
+        <SvgXml xml={StarVariants[0]} width={150} height={75} />
       </Animated.View>
 
       {/* Moon */}
@@ -336,7 +337,7 @@ const DreamWelcomeScreen = () => {
           },
         ]}
       >
-        <SvgXml xml={moonSvg} width={120} height={120} />
+        <SvgXml xml={MoonSvg} width={120} height={120} />
       </Animated.View>
 
       {/* Content */}
@@ -362,7 +363,7 @@ const DreamWelcomeScreen = () => {
           <Text style={styles.titleText}>Ruhani Danışmanına</Text>
           <Text style={styles.subtitleText}>Hoşgeldin</Text>
           <Text style={styles.descriptionText}>
-            Bilinçaltınızın derinliklerine yolculuk başlıyor. 
+            Bilinçaltınızın derinliklerine yolculuk başlıyor.
           </Text>
         </Animated.View>
 
