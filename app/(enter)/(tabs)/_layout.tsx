@@ -1,15 +1,41 @@
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { Stack } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { Stack, Tabs } from 'expo-router';
 
 const _layout = () => {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="HomeScreen" options={{ headerShown: false }} />
+    <Tabs>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
 
-
-    </Stack>
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? 'home' : 'home-outline'}
+              size={24}
+              color="#4338ca"
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="ArchiveScreen"
+        options={{
+          title: 'Home',
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name={focused ? 'archive' : 'archive-outline'}
+              size={24}
+              color="#4338ca" // Seçiliyse kırmızı, değilse mavi
+            />
+          ),
+        }}
+      />
+    </Tabs>
   );
 };
 

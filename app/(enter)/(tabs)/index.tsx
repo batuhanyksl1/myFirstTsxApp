@@ -2,549 +2,296 @@ import React from 'react';
 import {
   View,
   Text,
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
-  TextInput,
+  SafeAreaView,
   StatusBar,
+  Platform,
 } from 'react-native';
-import { Ionicons, Feather, AntDesign } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+} from '@expo-google-fonts/poppins';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const index = () => {
+// Ana navigasyon için tip tanımlaması
+type RootStackParamList = {
+  Home: undefined;
+  DreamInterpretation: undefined;
+  CharacterConsultation: undefined;
+  PastInterpretations: undefined;
+  Interpretations: undefined;
+  Profile: undefined;
+};
+
+type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Home'
+>;
+
+const index: React.FC = () => {
+  // Fontları yükle
+  const [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+  });
+
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Yükleniyor...</Text>
+      </View>
+    );
+  }
+
+  // Navigasyon fonksiyonları
+  const navigateToDreamInterpretation = () => {
+    navigation.navigate('DreamInterpretation');
+  };
+
+  const navigateToCharacterConsultation = () => {
+    navigation.navigate('CharacterConsultation');
+  };
+
+  const navigateToPastInterpretations = () => {
+    navigation.navigate('PastInterpretations');
+  };
+
+  const navigateToInterpretations = () => {
+    navigation.navigate('Interpretations');
+  };
+
+  const navigateToProfile = () => {
+    navigation.navigate('Profile');
+  };
+
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#7B68EE" />
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F8F9FB" />
 
-      {/* Header */}
+      {/* Başlık */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Keşfet</Text>
-<Link push href={'/(enter)/(tabs)/HomeScreen'}>
-HOLALALALALA
-</Link>
-        {/* Search Bar */}
-        <View style={styles.searchContainer}>
-          <View style={styles.searchBar}>
-            <Ionicons
-              name="search-outline"
-              size={20}
-              color="#999"
-              style={styles.searchIcon}
-            />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Rüyalarda ara..."
-              placeholderTextColor="#999"
-            />
-          </View>
-
-          <TouchableOpacity style={styles.filterButton}>
-            <Feather name="sliders" size={20} color="#7B68EE" />
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.headerTitle}>Ana Sayfa</Text>
       </View>
 
-      {/* Categories */}
-      <View style={styles.categoriesContainer}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.categoriesScroll}
+      {/* Ana İçerik */}
+      <View style={styles.content}>
+        {/* Karşılama Kartı */}
+        <LinearGradient
+          colors={['#e0e7ff', '#dce4ff']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.welcomeCard}
         >
-          <TouchableOpacity style={styles.categoryButtonActive}>
-            <Text style={styles.categoryTextActive}>Trendler</Text>
-          </TouchableOpacity>
+          <Text style={styles.welcomeTitle}>Hoş Geldiniz</Text>
+          <Text style={styles.welcomeSubtitle}>
+            Bugün size nasıl yardımcı olabiliriz?
+          </Text>
+        </LinearGradient>
 
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryText}>Uçuş</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryText}>Düşme</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryText}>Su</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
-
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Popular Dreams */}
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Popüler Rüyalar</Text>
-
-          {/* Dream Card 1 */}
-          <View style={styles.dreamCard}>
-            <View
-              style={[styles.dreamIndicator, { backgroundColor: '#5D4EEF' }]}
-            />
-
-            <View style={styles.dreamContent}>
-              {/* User Info */}
-              <View style={styles.userInfoContainer}>
-                <View style={styles.userAvatar}>
-                  <Text style={[styles.userInitials, { color: '#7B68EE' }]}>
-                    MK
-                  </Text>
-                </View>
-                <View style={styles.userDetails}>
-                  <Text style={styles.userName}>MehmetK.</Text>
-                  <Text style={styles.postTime}>2 saat önce</Text>
-                </View>
-              </View>
-
-              {/* Dream Content */}
-              <Text style={styles.dreamTitle}>Gökyüzünde Yüzmek</Text>
-              <Text style={styles.dreamDescription}>
-                Mavi bir gökyüzünde sanki bir okyanustaymış gibi yüzüyordum.
-                Yukarıya doğru çıktıkça...
-              </Text>
-
-              {/* Interaction Row */}
-              <View style={styles.interactionRow}>
-                <View style={styles.interactionGroup}>
-                  <Ionicons name="heart-outline" size={16} color="#999" />
-                  <Text style={styles.interactionText}>345</Text>
-                </View>
-
-                <View style={styles.interactionGroup}>
-                  <Ionicons name="chatbubble-outline" size={16} color="#999" />
-                  <Text style={styles.interactionText}>42</Text>
-                </View>
-
-                <View style={styles.tagContainer}>
-                  <View
-                    style={[styles.dreamTag, { backgroundColor: '#E8E5FF' }]}
-                  >
-                    <Text style={[styles.dreamTagText, { color: '#5D4EEF' }]}>
-                      Uçuş
-                    </Text>
-                  </View>
-
-                  <View
-                    style={[styles.dreamTag, { backgroundColor: '#E8E5FF' }]}
-                  >
-                    <Text style={[styles.dreamTagText, { color: '#5D4EEF' }]}>
-                      Su
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          {/* Dream Card 2 */}
-          <View style={styles.dreamCard}>
-            <View
-              style={[styles.dreamIndicator, { backgroundColor: '#FF6B6B' }]}
-            />
-
-            <View style={styles.dreamContent}>
-              {/* User Info */}
-              <View style={styles.userInfoContainer}>
-                <View style={styles.userAvatar}>
-                  <Text style={[styles.userInitials, { color: '#FF6B6B' }]}>
-                    ZC
-                  </Text>
-                </View>
-                <View style={styles.userDetails}>
-                  <Text style={styles.userName}>ZeynepC.</Text>
-                  <Text style={styles.postTime}>4 saat önce</Text>
-                </View>
-              </View>
-
-              {/* Dream Content */}
-              <Text style={styles.dreamTitle}>Sonsuz Merdivenler</Text>
-              <Text style={styles.dreamDescription}>
-                Gittikçe yükselen ve bir türlü sonu gelmeyen merdivenlerden
-                çıkıyordum. Her dönüşte...
-              </Text>
-
-              {/* Interaction Row */}
-              <View style={styles.interactionRow}>
-                <View style={styles.interactionGroup}>
-                  <Ionicons name="heart-outline" size={16} color="#999" />
-                  <Text style={styles.interactionText}>287</Text>
-                </View>
-
-                <View style={styles.interactionGroup}>
-                  <Ionicons name="chatbubble-outline" size={16} color="#999" />
-                  <Text style={styles.interactionText}>36</Text>
-                </View>
-
-                <View style={styles.tagContainer}>
-                  <View
-                    style={[styles.dreamTag, { backgroundColor: '#FFE8E8' }]}
-                  >
-                    <Text style={[styles.dreamTagText, { color: '#FF6B6B' }]}>
-                      Merdivenler
-                    </Text>
-                  </View>
-
-                  <View
-                    style={[styles.dreamTag, { backgroundColor: '#FFE8E8' }]}
-                  >
-                    <Text style={[styles.dreamTagText, { color: '#FF6B6B' }]}>
-                      Yükselme
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-
-        {/* Popular Commentators */}
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitle}>Popüler Yorumcular</Text>
-
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.commentatorsContainer}
+        {/* Hızlı Erişim Butonları */}
+        <View style={styles.quickAccessRow}>
+          <TouchableOpacity
+            style={styles.quickAccessButton}
+            onPress={navigateToDreamInterpretation}
+            activeOpacity={0.7}
           >
-            {/* Commentator Card 1 */}
-            <View style={styles.commentatorCard}>
-              <View style={styles.commentatorAvatar}>
-                <Text
-                  style={[styles.commentatorInitials, { color: '#7B68EE' }]}
-                >
-                  AS
-                </Text>
-              </View>
-              <Text style={styles.commentatorName}>AliS.</Text>
-              <Text style={styles.commentatorTitle}>Rüya Ustası</Text>
-              <TouchableOpacity
-                style={[styles.followButton, { backgroundColor: '#7B68EE' }]}
-              >
-                <Text style={styles.followButtonText}>Takip Et</Text>
-              </TouchableOpacity>
+            <View style={styles.quickAccessIconContainer}>
+              <Ionicons name="moon-outline" size={24} color="#4338ca" />
             </View>
+            <Text style={styles.quickAccessText}>Rüya{'\n'}Yorumu</Text>
+          </TouchableOpacity>
 
-            {/* Commentator Card 2 */}
-            <View style={styles.commentatorCard}>
-              <View style={styles.commentatorAvatar}>
-                <Text
-                  style={[styles.commentatorInitials, { color: '#4CAF50' }]}
-                >
-                  HT
-                </Text>
-              </View>
-              <Text style={styles.commentatorName}>HakanT.</Text>
-              <Text style={styles.commentatorTitle}>Rüya Bilgesi</Text>
-              <TouchableOpacity
-                style={[styles.followButton, { backgroundColor: '#4CAF50' }]}
-              >
-                <Text style={styles.followButtonText}>Takip Et</Text>
-              </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.quickAccessButton}
+            onPress={navigateToCharacterConsultation}
+            activeOpacity={0.7}
+          >
+            <View style={styles.quickAccessIconContainer}>
+              <Ionicons name="person-outline" size={24} color="#4338ca" />
             </View>
-
-            {/* Commentator Card 3 */}
-            <View style={styles.commentatorCard}>
-              <View style={styles.commentatorAvatar}>
-                <Text
-                  style={[styles.commentatorInitials, { color: '#FF6B6B' }]}
-                >
-                  SD
-                </Text>
-              </View>
-              <Text style={styles.commentatorName}>SelinD.</Text>
-              <Text style={styles.commentatorTitle}>Rüya Kâşifi</Text>
-              <TouchableOpacity
-                style={[styles.followButton, { backgroundColor: '#FF6B6B' }]}
-              >
-                <Text style={styles.followButtonText}>Takip Et</Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
+            <Text style={styles.quickAccessText}>Karakter{'\n'}Danışma</Text>
+          </TouchableOpacity>
         </View>
 
-        {/* Extra space at bottom */}
-        <View style={{ height: 90 }} />
-      </ScrollView>
-
-      {/* Bottom Tab Bar */}
-      <View style={styles.tabBar}>
-        <TouchableOpacity style={styles.tabItem}>
-          <Ionicons name="home-outline" size={24} color="#777" />
-          <Text style={styles.tabText}>Ana Sayfa</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.tabItem}>
-          <Ionicons name="search" size={24} color="#7B68EE" />
-          <Text style={[styles.tabText, { color: '#7B68EE' }]}>Keşfet</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.newDreamButton}>
-          <AntDesign name="plus" size={24} color="white" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.tabItem}>
-          <Ionicons name="person-outline" size={24} color="#777" />
-          <Text style={styles.tabText}>Profil</Text>
+        {/* Son Yorumlar */}
+        <TouchableOpacity
+          style={styles.recentCard}
+          onPress={navigateToPastInterpretations}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.recentTitle}>Son Yorumlarınız</Text>
+          {/* Son yorumların listesi burada olacak */}
+          <View style={styles.emptyRecentState}>
+            <Text style={styles.emptyRecentText}>Henüz yorum yok</Text>
+          </View>
         </TouchableOpacity>
       </View>
-    </View>
+
+      {/* Alt Navigasyon Çubuğu */}
+      {/* <View style={styles.tabBar}>
+        <TouchableOpacity style={styles.tabButton} activeOpacity={0.7}>
+          <Ionicons name="home" size={22} color="#4338ca" />
+          <Text style={styles.tabButtonTextActive}>Ana Sayfa</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.tabButton}
+          onPress={navigateToInterpretations}
+          activeOpacity={0.7}
+        >
+          <Ionicons name="list-outline" size={22} color="#9CA3AF" />
+          <Text style={styles.tabButtonText}>Yorumlar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.tabButton}
+          onPress={navigateToProfile}
+          activeOpacity={0.7}
+        >
+          <Ionicons name="person-outline" size={22} color="#9CA3AF" />
+          <Text style={styles.tabButtonText}>Profil</Text>
+        </TouchableOpacity>
+      </View> */}
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#F8F9FB',
   },
-  header: {
-    backgroundColor: '#7B68EE',
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 16,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 10,
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 20,
-    paddingHorizontal: 12,
-    height: 40,
+  loadingContainer: {
     flex: 1,
-  },
-  searchIcon: {
-    marginRight: 8,
-  },
-  searchInput: {
-    flex: 1,
-    height: 40,
-    fontSize: 14,
-    color: '#333',
-  },
-  filterButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 10,
   },
-  categoriesContainer: {
-    backgroundColor: 'white',
-    paddingVertical: 12,
+  header: {
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight || 0 : 0,
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EEEFF3',
   },
-  categoriesScroll: {
-    paddingHorizontal: 15,
+  headerTitle: {
+    fontFamily: 'Poppins_600SemiBold',
+    fontSize: 24,
+    color: '#1F2937',
   },
-  categoryButtonActive: {
-    backgroundColor: '#7B68EE',
-    borderRadius: 17.5,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    marginRight: 10,
-  },
-  categoryButton: {
-    backgroundColor: 'white',
-    borderRadius: 17.5,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    marginRight: 10,
-    borderWidth: 1,
-    borderColor: '#7B68EE',
-  },
-  categoryTextActive: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  categoryText: {
-    color: '#7B68EE',
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  sectionContainer: {
-    marginTop: 20,
-    paddingHorizontal: 16,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
-  },
-  dreamCard: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    marginBottom: 15,
-    overflow: 'hidden',
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: '#EEEEEE',
-  },
-  dreamIndicator: {
-    width: 5,
-    height: '100%',
-  },
-  dreamContent: {
+  content: {
     flex: 1,
     padding: 16,
   },
-  userInfoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  userAvatar: {
-    width: 40,
-    height: 40,
+  welcomeCard: {
     borderRadius: 20,
-    backgroundColor: '#EDEDED',
+    padding: 24,
+    marginBottom: 20,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
+    elevation: 2,
+    shadowColor: '#4338ca',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
   },
-  userInitials: {
+  welcomeTitle: {
+    fontFamily: 'Poppins_600SemiBold',
+    fontSize: 22,
+    color: '#1F2937',
+    marginBottom: 8,
+  },
+  welcomeSubtitle: {
+    fontFamily: 'Poppins_400Regular',
     fontSize: 16,
-    fontWeight: 'bold',
+    color: '#6B7280',
+    textAlign: 'center',
   },
-  userDetails: {
-    marginLeft: 10,
-  },
-  userName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  postTime: {
-    fontSize: 12,
-    color: '#777',
-  },
-  dreamTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 4,
-  },
-  dreamDescription: {
-    fontSize: 12,
-    color: '#777',
-    marginBottom: 12,
-    lineHeight: 18,
-  },
-  interactionRow: {
+  quickAccessRow: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  quickAccessButton: {
+    width: '48%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    padding: 20,
     alignItems: 'center',
-  },
-  interactionGroup: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 20,
-  },
-  interactionText: {
-    fontSize: 12,
-    color: '#999',
-    marginLeft: 6,
-  },
-  tagContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  dreamTag: {
-    borderRadius: 11,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    marginLeft: 5,
-  },
-  dreamTagText: {
-    fontSize: 11,
-    fontWeight: '500',
-  },
-  commentatorsContainer: {
-    paddingRight: 16,
-  },
-  commentatorCard: {
-    width: 120,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-    marginRight: 10,
     borderWidth: 1,
-    borderColor: '#EEEEEE',
+    borderColor: '#EEEFF3',
   },
-  commentatorAvatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#EDEDED',
+  quickAccessIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#EEF2FF',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
-  commentatorInitials: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  quickAccessText: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 16,
+    color: '#1F2937',
+    textAlign: 'center',
   },
-  commentatorName: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 4,
+  recentCard: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: '#EEEFF3',
   },
-  commentatorTitle: {
-    fontSize: 12,
-    color: '#777',
-    marginBottom: 10,
+  recentTitle: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 18,
+    color: '#1F2937',
+    marginBottom: 16,
   },
-  followButton: {
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    width: '100%',
+  emptyRecentState: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  followButtonText: {
-    color: 'white',
-    fontSize: 11,
-    fontWeight: '500',
+  emptyRecentText: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 14,
+    color: '#9CA3AF',
   },
   tabBar: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    height: 70,
+    backgroundColor: '#FFFFFF',
     borderTopWidth: 1,
-    borderTopColor: '#EEEEEE',
-    height: 50,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    borderTopColor: '#EEEFF3',
+    paddingHorizontal: 10,
   },
-  tabItem: {
-    alignItems: 'center',
-  },
-  tabText: {
-    fontSize: 10,
-    color: '#777',
-    marginTop: 2,
-  },
-  newDreamButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#7B68EE',
+  tabButton: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  tabButtonText: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 12,
+    color: '#9CA3AF',
+    marginTop: 4,
+  },
+  tabButtonTextActive: {
+    fontFamily: 'Poppins_500Medium',
+    fontSize: 12,
+    color: '#4338ca',
+    marginTop: 4,
   },
 });
 

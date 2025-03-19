@@ -14,6 +14,7 @@ import {
   Keyboard,
   Image,
   Alert,
+  Pressable,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SomniaLogo } from '@/components/svgs';
@@ -26,6 +27,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Link, useRouter } from 'expo-router';
 
 // Ana navigasyon için tip tanımlaması
 type RootStackParamList = {
@@ -55,6 +57,7 @@ const LoginScreen: React.FC = () => {
   });
 
   const navigation = useNavigation<LoginScreenNavigationProp>();
+  const router = useRouter();
 
   if (!fontsLoaded) {
     return (
@@ -87,6 +90,7 @@ const LoginScreen: React.FC = () => {
 
     // E-posta format kontrolü
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!emailRegex.test(email)) {
       Alert.alert('Hata', 'Lütfen geçerli bir e-posta adresi girin');
       return;
@@ -118,14 +122,6 @@ const LoginScreen: React.FC = () => {
           <View style={styles.content}>
             {/* Logo ve Başlık */}
             <View style={styles.logoContainer}>
-              {/* <LinearGradient
-                colors={['#e0e7ff', '#dce4ff']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.logoCircle}
-              >
-                <Text style={styles.logoText}>R</Text>
-              </LinearGradient> */}
               <SomniaLogo />
               <Text style={styles.appTitle}>Rüya Danışmanı</Text>
 
@@ -191,20 +187,24 @@ const LoginScreen: React.FC = () => {
                 <Text style={styles.forgotPasswordText}>Şifremi Unuttum</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={[
-                  styles.loginButton,
-                  isLoading && styles.loginButtonDisabled,
-                ]}
-                onPress={handleLogin}
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <Text style={styles.loginButtonText}>Giriş Yapılıyor...</Text>
-                ) : (
-                  <Text style={styles.loginButtonText}>Giriş Yap</Text>
-                )}
-              </TouchableOpacity>
+                <Pressable
+                  style={[
+                    styles.loginButton,
+                    isLoading && styles.loginButtonDisabled,
+                  ]}
+                  //onPress={handleLogin}
+                  onPress={() => router.push('/(enter)/(tabs)/ArchiveScreen')}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <Text style={styles.loginButtonText}>
+                      Giriş Yapılıyor...
+                    </Text>
+                  ) : (
+                    <Text style={styles.loginButtonText}>Giriş Yap</Text>
+                  )}
+                </Pressable>
+
 
               <TouchableOpacity
                 style={styles.registerButton}

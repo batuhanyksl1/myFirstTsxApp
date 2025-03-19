@@ -14,6 +14,7 @@ import {
 import { SvgXml } from 'react-native-svg';
 import { BlurView } from 'expo-blur';
 import {
+  CloudIcon,
   DreamVortexSvg,
   MoonSvg,
   StarVariants,
@@ -312,7 +313,7 @@ const DreamWelcomeScreen = () => {
           },
         ]}
       >
-        <SvgXml xml={StarVariants[0]} width={200} height={100} />
+        <SvgXml xml={CloudIcon} width={200} height={100} />
       </Animated.View>
 
       <Animated.View
@@ -324,7 +325,7 @@ const DreamWelcomeScreen = () => {
           },
         ]}
       >
-        <SvgXml xml={StarVariants[0]} width={150} height={75} />
+        <SvgXml xml={CloudIcon} width={150} height={75} />
       </Animated.View>
 
       {/* Moon */}

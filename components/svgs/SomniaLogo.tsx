@@ -73,12 +73,14 @@ const SomniaLogo: React.FC = () => {
 
       // Güneş ışınlarının dönmesi
       Animated.parallel([
-        Animated.timing(rayRotation, {
-          toValue: 1,
-          duration: 20000,
-          useNativeDriver: true,
-          easing: Easing.linear,
-        }),
+        Animated.loop(
+          Animated.timing(rayRotation, {
+            toValue: 10,
+            duration: 2000,
+            useNativeDriver: true,
+            easing: Easing.linear,
+          })
+        ),
 
         // "Somnia" yazısının belirmesi
         Animated.timing(textOpacity, {
