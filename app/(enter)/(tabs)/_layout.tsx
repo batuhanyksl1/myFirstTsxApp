@@ -2,15 +2,15 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, Tabs } from 'expo-router';
+import { getInitialURL } from 'expo-router/build/link/linking';
 
 const _layout = () => {
   return (
-    <Tabs>
+    <Tabs initialRouteName="index">
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-
+          title: 'Keşfet',
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Ionicons
@@ -24,7 +24,7 @@ const _layout = () => {
       <Tabs.Screen
         name="ArchiveScreen"
         options={{
-          title: 'Home',
+          title: 'Arşiv',
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Ionicons

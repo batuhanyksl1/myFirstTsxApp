@@ -1,166 +1,208 @@
-import React from 'react';
+
+//sust and dust
+import React, { useState } from 'react';
 import {
   View,
   Text,
-  StyleSheet,
+  TextInput,
   TouchableOpacity,
+  FlatList,
+  StyleSheet,
   SafeAreaView,
   StatusBar,
-  Platform,
+  ScrollView,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import {
-  useFonts,
-  Poppins_400Regular,
-  Poppins_500Medium,
-  Poppins_600SemiBold,
-} from '@expo-google-fonts/poppins';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-// Ana navigasyon için tip tanımlaması
-type RootStackParamList = {
-  Home: undefined;
-  DreamInterpretation: undefined;
-  CharacterConsultation: undefined;
-  PastInterpretations: undefined;
-  Interpretations: undefined;
-  Profile: undefined;
-};
-
-type HomeScreenNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'Home'
->;
+interface ItemData {
+  id: string;
+  type: 'Rüya' | 'Danışma';
+  title: string;
+  author: string;
+  description: string;
+  date: string;
+  liked?: boolean;
+}
 
 const index: React.FC = () => {
-  // Fontları yükle
-  const [fontsLoaded] = useFonts({
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_600SemiBold,
-  });
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const navigation = useNavigation<HomeScreenNavigationProp>();
-
-  if (!fontsLoaded) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Text>Yükleniyor...</Text>
-      </View>
-    );
-  }
-
-  // Navigasyon fonksiyonları
-  const navigateToDreamInterpretation = () => {
-    navigation.navigate('DreamInterpretation');
+  // Show welcome message based on time of day
+  const getWelcomeMessage = () => {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return 'Günaydın';
+    if (hour >= 12 && hour < 18) return 'İyi Günler';
+    if (hour >= 18 && hour < 22) return 'İyi Akşamlar';
+    return 'İyi Geceler';
   };
 
-  const navigateToCharacterConsultation = () => {
-    navigation.navigate('CharacterConsultation');
+  // Daily inspiration quote
+  const dailyQuote = {
+    text: 'Hayatınızın kontrolü sizin elinizde, her gün yeni bir başlangıçtır.',
+    author: '- Rumi',
   };
 
-  const navigateToPastInterpretations = () => {
-    navigation.navigate('PastInterpretations');
-  };
-
-  const navigateToInterpretations = () => {
-    navigation.navigate('Interpretations');
-  };
-
-  const navigateToProfile = () => {
-    navigation.navigate('Profile');
-  };
+  // Sample upcoming astrology events
+  const upcomingEvents = [
+    {
+      id: '1',
+      title: 'Merkür Retrosu Bitiyor',
+      date: '30 Mart 2025',
+      impact: 'İletişim ve teknoloji alanlarında iyileşme',
+    },
+    {
+      id: '2',
+      title: 'Dolunay - Terazi Burcu',
+      date: '2 Nisan 2025',
+      impact: 'İlişkilerinizde denge ve uyum',
+    },
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F8F9FB" />
+      <ScrollView>
+        <StatusBar barStyle="dark-content" />
 
-      {/* Başlık */}
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Ana Sayfa</Text>
-      </View>
-
-      {/* Ana İçerik */}
-      <View style={styles.content}>
-        {/* Karşılama Kartı */}
-        <LinearGradient
-          colors={['#e0e7ff', '#dce4ff']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.welcomeCard}
-        >
-          <Text style={styles.welcomeTitle}>Hoş Geldiniz</Text>
-          <Text style={styles.welcomeSubtitle}>
-            Bugün size nasıl yardımcı olabiliriz?
-          </Text>
-        </LinearGradient>
-
-        {/* Hızlı Erişim Butonları */}
-        <View style={styles.quickAccessRow}>
-          <TouchableOpacity
-            style={styles.quickAccessButton}
-            onPress={navigateToDreamInterpretation}
-            activeOpacity={0.7}
-          >
-            <View style={styles.quickAccessIconContainer}>
-              <Ionicons name="moon-outline" size={24} color="#4338ca" />
-            </View>
-            <Text style={styles.quickAccessText}>Rüya{'\n'}Yorumu</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.quickAccessButton}
-            onPress={navigateToCharacterConsultation}
-            activeOpacity={0.7}
-          >
-            <View style={styles.quickAccessIconContainer}>
-              <Ionicons name="person-outline" size={24} color="#4338ca" />
-            </View>
-            <Text style={styles.quickAccessText}>Karakter{'\n'}Danışma</Text>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Ana Sayfa</Text>
+          <TouchableOpacity style={styles.notificationButton}>
+            <Ionicons name="notifications-outline" size={24} color="#5142e6" />
+            <View style={styles.notificationBadge} />
           </TouchableOpacity>
         </View>
 
-        {/* Son Yorumlar */}
-        <TouchableOpacity
-          style={styles.recentCard}
-          onPress={navigateToPastInterpretations}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.recentTitle}>Son Yorumlarınız</Text>
-          {/* Son yorumların listesi burada olacak */}
-          <View style={styles.emptyRecentState}>
-            <Text style={styles.emptyRecentText}>Henüz yorum yok</Text>
+        {/* Welcome Banner */}
+        <View style={styles.welcomeBanner}>
+          <View>
+            <Text style={styles.welcomeTitle}>{getWelcomeMessage()}</Text>
+            <Text style={styles.welcomeSubtitle}>
+              Bugün size nasıl yardımcı olabiliriz?
+            </Text>
           </View>
-        </TouchableOpacity>
-      </View>
+        </View>
 
-      {/* Alt Navigasyon Çubuğu */}
-      {/* <View style={styles.tabBar}>
-        <TouchableOpacity style={styles.tabButton} activeOpacity={0.7}>
-          <Ionicons name="home" size={22} color="#4338ca" />
-          <Text style={styles.tabButtonTextActive}>Ana Sayfa</Text>
-        </TouchableOpacity>
+        {/* Main Services Grid */}
+        <View style={styles.servicesGrid}>
+          <TouchableOpacity style={styles.serviceCard}>
+            <View style={styles.serviceIconContainer}>
+              <Ionicons name="moon-outline" size={28} color="#5142e6" />
+            </View>
+            <Text style={styles.serviceTitle}>Rüya{'\n'}Yorumu</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.tabButton}
-          onPress={navigateToInterpretations}
-          activeOpacity={0.7}
-        >
-          <Ionicons name="list-outline" size={22} color="#9CA3AF" />
-          <Text style={styles.tabButtonText}>Yorumlar</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.serviceCard}>
+            <View style={styles.serviceIconContainer}>
+              <Ionicons name="person-outline" size={28} color="#5142e6" />
+            </View>
+            <Text style={styles.serviceTitle}>Karakter{'\n'}Danışma</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.tabButton}
-          onPress={navigateToProfile}
-          activeOpacity={0.7}
-        >
-          <Ionicons name="person-outline" size={22} color="#9CA3AF" />
-          <Text style={styles.tabButtonText}>Profil</Text>
-        </TouchableOpacity>
-      </View> */}
+          <TouchableOpacity style={styles.serviceCard}>
+            <View style={styles.serviceIconContainer}>
+              <Ionicons name="star-outline" size={28} color="#5142e6" />
+            </View>
+            <Text style={styles.serviceTitle}>Günlük{'\n'}Burç</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.serviceCard}>
+            <View style={styles.serviceIconContainer}>
+              <Ionicons name="calendar-outline" size={28} color="#5142e6" />
+            </View>
+            <Text style={styles.serviceTitle}>Tarot{'\n'}Falı</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Daily Quote */}
+        <View style={styles.quoteContainer}>
+          <View style={styles.quoteIconContainer}>
+            <Ionicons name="quote" size={20} color="#fff" />
+          </View>
+          <Text style={styles.quoteText}>{dailyQuote.text}</Text>
+          <Text style={styles.quoteAuthor}>{dailyQuote.author}</Text>
+        </View>
+
+        {/* Feature Navigation Cards */}
+        <View style={styles.featuresContainer}>
+          <Text style={styles.sectionTitle}>Özel İçerikler</Text>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.featuresScroll}
+          >
+            <TouchableOpacity style={styles.featureCard}>
+              <View
+                style={[
+                  styles.featureIconContainer,
+                  { backgroundColor: '#FFE0B2' },
+                ]}
+              >
+                <Ionicons name="book-outline" size={24} color="#FB8C00" />
+              </View>
+              <Text style={styles.featureTitle}>Meditasyon{'\n'}Rehberi</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.featureCard}>
+              <View
+                style={[
+                  styles.featureIconContainer,
+                  { backgroundColor: '#DCEDC8' },
+                ]}
+              >
+                <Ionicons name="leaf-outline" size={24} color="#7CB342" />
+              </View>
+              <Text style={styles.featureTitle}>Şifalı{'\n'}Bitkiler</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.featureCard}>
+              <View
+                style={[
+                  styles.featureIconContainer,
+                  { backgroundColor: '#B3E5FC' },
+                ]}
+              >
+                <Ionicons name="water-outline" size={24} color="#039BE5" />
+              </View>
+              <Text style={styles.featureTitle}>Kristal{'\n'}Enerjisi</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.featureCard}>
+              <View
+                style={[
+                  styles.featureIconContainer,
+                  { backgroundColor: '#F8BBD0' },
+                ]}
+              >
+                <Ionicons name="heart-outline" size={24} color="#EC407A" />
+              </View>
+              <Text style={styles.featureTitle}>İlişki{'\n'}Analizi</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
+
+        {/* Upcoming Astrology Events */}
+        <View style={styles.eventsContainer}>
+          <View style={styles.eventsTitleRow}>
+            <Text style={styles.sectionTitle}>Yaklaşan Gök Olayları</Text>
+            <TouchableOpacity>
+              <Text style={styles.seeAllText}>Tümünü Gör</Text>
+            </TouchableOpacity>
+          </View>
+
+          {upcomingEvents.map((event) => (
+            <View key={event.id} style={styles.eventCard}>
+              <View style={styles.eventDateContainer}>
+                <Text style={styles.eventDate}>{event.date}</Text>
+              </View>
+              <View style={styles.eventInfo}>
+                <Text style={styles.eventTitle}>{event.title}</Text>
+                <Text style={styles.eventImpact}>{event.impact}</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#999" />
+            </View>
+          ))}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -168,130 +210,235 @@ const index: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FB',
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
   },
   header: {
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight || 0 : 0,
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEFF3',
-  },
-  headerTitle: {
-    fontFamily: 'Poppins_600SemiBold',
-    fontSize: 24,
-    color: '#1F2937',
-  },
-  content: {
-    flex: 1,
-    padding: 16,
-  },
-  welcomeCard: {
-    borderRadius: 20,
-    padding: 24,
-    marginBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 2,
-    shadowColor: '#4338ca',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-  },
-  welcomeTitle: {
-    fontFamily: 'Poppins_600SemiBold',
-    fontSize: 22,
-    color: '#1F2937',
-    marginBottom: 8,
-  },
-  welcomeSubtitle: {
-    fontFamily: 'Poppins_400Regular',
-    fontSize: 16,
-    color: '#6B7280',
-    textAlign: 'center',
-  },
-  quickAccessRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  quickAccessButton: {
-    width: '48%',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#EEEFF3',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
-  quickAccessIconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: '#EEF2FF',
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#222',
+  },
+  notificationButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#f0f2ff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  notificationBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 10,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#ff3b30',
+  },
+  welcomeBanner: {
+    marginHorizontal: 16,
+    marginTop: 8,
+    marginBottom: 16,
+    padding: 16,
+    backgroundColor: '#edeeff',
+    borderRadius: 16,
+  },
+  welcomeTitle: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#222',
+    marginBottom: 4,
+  },
+  welcomeSubtitle: {
+    fontSize: 16,
+    color: '#666',
+  },
+  servicesGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginHorizontal: 12,
+    marginBottom: 16,
+  },
+  serviceCard: {
+    width: '46%',
+    margin: '2%',
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    elevation: 2,
+    alignItems: 'center',
+  },
+  serviceIconContainer: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#f0f2ff',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
   },
-  quickAccessText: {
-    fontFamily: 'Poppins_500Medium',
+  serviceTitle: {
     fontSize: 16,
-    color: '#1F2937',
+    fontWeight: '600',
+    color: '#333',
     textAlign: 'center',
   },
-  recentCard: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
+  quoteContainer: {
+    marginHorizontal: 16,
+    marginBottom: 16,
+    padding: 16,
+    backgroundColor: '#fff',
     borderRadius: 16,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#EEEFF3',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    elevation: 2,
   },
-  recentTitle: {
-    fontFamily: 'Poppins_500Medium',
-    fontSize: 18,
-    color: '#1F2937',
+  quoteIconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#5142e6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  quoteText: {
+    fontSize: 16,
+    fontStyle: 'italic',
+    color: '#333',
+    lineHeight: 22,
+    marginBottom: 8,
+  },
+  quoteAuthor: {
+    fontSize: 14,
+    color: '#666',
+    alignSelf: 'flex-end',
+  },
+  featuresContainer: {
     marginBottom: 16,
   },
-  emptyRecentState: {
-    flex: 1,
-    justifyContent: 'center',
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#222',
+    marginHorizontal: 16,
+    marginBottom: 12,
+  },
+  featuresScroll: {
+    paddingLeft: 16,
+  },
+  featureCard: {
+    width: 120,
+    marginRight: 12,
+    padding: 12,
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
     alignItems: 'center',
   },
-  emptyRecentText: {
-    fontFamily: 'Poppins_400Regular',
+  featureIconContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  featureTitle: {
     fontSize: 14,
-    color: '#9CA3AF',
+    fontWeight: '600',
+    color: '#333',
+    textAlign: 'center',
   },
-  tabBar: {
+  eventsContainer: {
+    marginHorizontal: 16,
+    marginBottom: 24,
+  },
+  eventsTitleRow: {
     flexDirection: 'row',
-    height: 70,
-    backgroundColor: '#FFFFFF',
-    borderTopWidth: 1,
-    borderTopColor: '#EEEFF3',
-    paddingHorizontal: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
   },
-  tabButton: {
+  seeAllText: {
+    fontSize: 14,
+    color: '#5142e6',
+    fontWeight: '600',
+  },
+  eventCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    padding: 12,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  eventDateContainer: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: '#f0f2ff',
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  eventDate: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#5142e6',
+  },
+  eventInfo: {
+    flex: 1,
+  },
+  eventTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 2,
+  },
+  eventImpact: {
+    fontSize: 13,
+    color: '#666',
+  },
+  bottomNavigation: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+  },
+  navButton: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  tabButtonText: {
-    fontFamily: 'Poppins_400Regular',
+  navText: {
     fontSize: 12,
-    color: '#9CA3AF',
-    marginTop: 4,
-  },
-  tabButtonTextActive: {
-    fontFamily: 'Poppins_500Medium',
-    fontSize: 12,
-    color: '#4338ca',
-    marginTop: 4,
+    color: '#5142e6',
+    marginTop: 2,
   },
 });
 
