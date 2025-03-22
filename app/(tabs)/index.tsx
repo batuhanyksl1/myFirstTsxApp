@@ -13,21 +13,12 @@ import {
 
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import Header from '@/components/atomic/Header/Header';
-import StatusBar from '@/components/atomic/Header/StatusBar';
-
+import Header from '@/components/atomic/Header';
+import StatusBar from '@/components/atomic/StatusBar';
+import WelcomeBanner from '@/components/atomic/Banner';
+import DailyQoute from '@/components/atomic/Qoute';
 
 const index: React.FC = () => {
-
-  // Show welcome message based on time of day
-  const getWelcomeMessage = () => {
-    const hour = new Date().getHours();
-    if (hour >= 5 && hour < 12) return 'Günaydın';
-    if (hour >= 12 && hour < 18) return 'İyi Günler';
-    if (hour >= 18 && hour < 22) return 'İyi Akşamlar';
-    return 'İyi Geceler';
-  };
-
   // Daily inspiration quote
   const dailyQuote = {
     text: 'Hayatınızın kontrolü sizin elinizde, her gün yeni bir başlangıçtır.',
@@ -53,20 +44,9 @@ const index: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-      <StatusBar/>
+        <StatusBar />
         <Header title="Ana Sayfa" />
-        {/* Search Bar */}
-
-        {/* Welcome Banner */}
-       <View style={styles.welcomeBanner}>
-          <View>
-            <Text style={styles.welcomeTitle}>{getWelcomeMessage()}</Text>
-            <Text style={styles.welcomeSubtitle}>
-              Bugün size nasıl yardımcı olabiliriz?
-            </Text>
-          </View>
-        </View>
-
+        <WelcomeBanner />
         {/* Main Services Grid */}
         <View style={styles.servicesGrid}>
           <TouchableOpacity
@@ -109,15 +89,7 @@ const index: React.FC = () => {
             <Text style={styles.serviceTitle}>Tarot{'\n'}Falı</Text>
           </TouchableOpacity>
         </View>
-
-        {/* Daily Quote */}
-        <View style={styles.quoteContainer}>
-          <View style={styles.quoteIconContainer}>
-            <Ionicons name="swap-vertical" size={20} color="#fff" />
-          </View>
-          <Text style={styles.quoteText}>{dailyQuote.text}</Text>
-          <Text style={styles.quoteAuthor}>{dailyQuote.author}</Text>
-        </View>
+        <DailyQoute />
 
         {/* Feature Navigation Cards */}
         <View style={styles.featuresContainer}>
@@ -205,7 +177,7 @@ const index: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa',
@@ -239,24 +211,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: '#ff3b30',
   },
-  welcomeBanner: {
-    marginHorizontal: 16,
-    marginTop: 8,
-    marginBottom: 16,
-    padding: 16,
-    backgroundColor: '#edeeff',
-    borderRadius: 16,
-  },
-  welcomeTitle: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#222',
-    marginBottom: 4,
-  },
-  welcomeSubtitle: {
-    fontSize: 16,
-    color: '#666',
-  },
+
+
   servicesGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -291,39 +247,7 @@ const styles = StyleSheet.create({
     color: '#333',
     textAlign: 'center',
   },
-  quoteContainer: {
-    marginHorizontal: 16,
-    marginBottom: 16,
-    padding: 16,
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-    elevation: 2,
-  },
-  quoteIconContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: '#5142e6',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  quoteText: {
-    fontSize: 16,
-    fontStyle: 'italic',
-    color: '#333',
-    lineHeight: 22,
-    marginBottom: 8,
-  },
-  quoteAuthor: {
-    fontSize: 14,
-    color: '#666',
-    alignSelf: 'flex-end',
-  },
+
   featuresContainer: {
     marginBottom: 16,
   },

@@ -18,7 +18,7 @@ import {
   DreamVortexSvg,
   MoonSvg,
   StarVariants,
-} from '@/components/svgs';
+} from '@/assets/svgs';
 
 import { Link, useRouter } from 'expo-router';
 // Dimensions

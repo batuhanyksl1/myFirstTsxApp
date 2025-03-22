@@ -17,7 +17,7 @@ import {
   Pressable,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { SomniaLogo } from '@/components/svgs';
+import { SomniaLogo } from '@/assets/svgs';
 import {
   useFonts,
   Poppins_400Regular,
@@ -187,24 +187,21 @@ const LoginScreen: React.FC = () => {
                 <Text style={styles.forgotPasswordText}>Şifremi Unuttum</Text>
               </TouchableOpacity>
 
-                <Pressable
-                  style={[
-                    styles.loginButton,
-                    isLoading && styles.loginButtonDisabled,
-                  ]}
-                  //onPress={handleLogin}
-                  onPress={() => router.push('/(tabs)')}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <Text style={styles.loginButtonText}>
-                      Giriş Yapılıyor...
-                    </Text>
-                  ) : (
-                    <Text style={styles.loginButtonText}>Giriş Yap</Text>
-                  )}
-                </Pressable>
-
+              <Pressable
+                style={[
+                  styles.loginButton,
+                  isLoading && styles.loginButtonDisabled,
+                ]}
+                //onPress={handleLogin}
+                onPress={() => router.push('/(tabs)')}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Text style={styles.loginButtonText}>Giriş Yapılıyor...</Text>
+                ) : (
+                  <Text style={styles.loginButtonText}>Giriş Yap</Text>
+                )}
+              </Pressable>
 
               <TouchableOpacity
                 style={styles.registerButton}
