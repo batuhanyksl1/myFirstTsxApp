@@ -1,4 +1,4 @@
-//sust and dust
+// KEŞFET - TAB GİRİŞ
 import React, { useState } from 'react';
 import {
   View,
@@ -13,8 +13,7 @@ import {
 
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { Header, StatusBar } from '@/components';
-import WelcomeBanner from '@/components/atomic/Banner';
+import { Header, StatusBar, WelcomeBanner } from '@/components';
 import DailyQoute from '@/components/atomic/Qoute';
 
 const index: React.FC = () => {
@@ -210,7 +209,6 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: '#ff3b30',
   },
-
 
   servicesGrid: {
     flexDirection: 'row',

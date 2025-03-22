@@ -2,22 +2,16 @@ import { StyleSheet } from 'react-native';
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export function Banner() {
-  const getWelcomeMessage = () => {
-    const hour = new Date().getHours();
-    if (hour >= 5 && hour < 12) return 'Günaydın';
-    if (hour >= 12 && hour < 18) return 'İyi Günler';
-    if (hour >= 18 && hour < 22) return 'İyi Akşamlar';
-    return 'İyi Geceler';
-  };
-
+type BannerProps = {
+  title?: string;
+  body?: string;
+};
+export function Banner({ title, body }: BannerProps) {
   return (
     <View style={styles.welcomeBanner}>
       <View>
-        <Text style={styles.welcomeTitle}>{getWelcomeMessage()}</Text>
-        <Text style={styles.welcomeSubtitle}>
-          Bugün size nasıl yardımcı olabiliriz?
-        </Text>
+        <Text style={styles.welcomeTitle}>{title}</Text>
+        <Text style={styles.welcomeSubtitle}>{body}</Text>
       </View>
     </View>
   );
