@@ -227,7 +227,7 @@ const SignUpScreen = () => {
             <View style={styles.loginContainer}>
               <Text style={styles.loginText}>
                 Zaten hesabınız var mı?{' '}
-                <Text onPress={()=> router.push ('/(enter)/(authStack)')} style={styles.loginLink}>Giriş yapın</Text>
+                <Text onPress={()=> router.push ('/(authStack)')} style={styles.loginLink}>Giriş yapın</Text>
               </Text>
             </View>
 

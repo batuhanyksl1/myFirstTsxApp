@@ -1,8 +1,6 @@
-import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { Stack, Tabs } from 'expo-router';
-import { getInitialURL } from 'expo-router/build/link/linking';
+import {  Tabs } from 'expo-router';
 
 const _layout = () => {
   return (

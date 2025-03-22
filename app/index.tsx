@@ -387,7 +387,7 @@ const DreamWelcomeScreen = () => {
         >
           <TouchableOpacity
             style={styles.primaryButton}
-            onPress={() => router.push('/(enter)/(authStack)')} // Sayfaya yönlendir
+            onPress={() => router.push('/(authStack)')} // Sayfaya yönlendir
           >
             <BlurView style={styles.buttonBlur} tint="light" intensity={20} />
             <Text style={styles.primaryButtonText}>Yolculuğa Başla</Text>

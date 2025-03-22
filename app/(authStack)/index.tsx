@@ -193,7 +193,7 @@ const LoginScreen: React.FC = () => {
                     isLoading && styles.loginButtonDisabled,
                   ]}
                   //onPress={handleLogin}
-                  onPress={() => router.push('/(enter)/(tabs)/ArchiveScreen')}
+                  onPress={() => router.push('/(tabs)')}
                   disabled={isLoading}
                 >
                   {isLoading ? (

@@ -1,4 +1,3 @@
-
 //sust and dust
 import React, { useState } from 'react';
 import {
@@ -9,23 +8,16 @@ import {
   FlatList,
   StyleSheet,
   SafeAreaView,
-  StatusBar,
   ScrollView,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
-interface ItemData {
-  id: string;
-  type: 'Rüya' | 'Danışma';
-  title: string;
-  author: string;
-  description: string;
-  date: string;
-  liked?: boolean;
-}
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import Header from '@/components/atomic/Header/Header';
+import StatusBar from '@/components/atomic/Header/StatusBar';
+
 
 const index: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
 
   // Show welcome message based on time of day
   const getWelcomeMessage = () => {
@@ -61,15 +53,9 @@ const index: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <StatusBar barStyle="dark-content" />
-
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Ana Sayfa</Text>
-          <TouchableOpacity style={styles.notificationButton}>
-            <Ionicons name="notifications-outline" size={24} color="#5142e6" />
-            <View style={styles.notificationBadge} />
-          </TouchableOpacity>
-        </View>
+      <StatusBar/>
+        <Header title="Ana Sayfa" />
+        {/* Search Bar */}
 
         {/* Welcome Banner */}
         <View style={styles.welcomeBanner}>
@@ -83,28 +69,40 @@ const index: React.FC = () => {
 
         {/* Main Services Grid */}
         <View style={styles.servicesGrid}>
-          <TouchableOpacity style={styles.serviceCard}>
+          <TouchableOpacity
+            style={styles.serviceCard}
+            onPress={() => router.push('/(enter)/(commet)')}
+          >
             <View style={styles.serviceIconContainer}>
               <Ionicons name="moon-outline" size={28} color="#5142e6" />
             </View>
             <Text style={styles.serviceTitle}>Rüya{'\n'}Yorumu</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.serviceCard}>
+          <TouchableOpacity
+            style={styles.serviceCard}
+            onPress={() => router.push('/(enter)/(commet)/consultation')}
+          >
             <View style={styles.serviceIconContainer}>
               <Ionicons name="person-outline" size={28} color="#5142e6" />
             </View>
             <Text style={styles.serviceTitle}>Karakter{'\n'}Danışma</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.serviceCard}>
+          <TouchableOpacity
+            onPress={() => router.push('/(enter)/(commet)/horoscope')}
+            style={styles.serviceCard}
+          >
             <View style={styles.serviceIconContainer}>
               <Ionicons name="star-outline" size={28} color="#5142e6" />
             </View>
             <Text style={styles.serviceTitle}>Günlük{'\n'}Burç</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.serviceCard}>
+          <TouchableOpacity
+            style={styles.serviceCard}
+            onPress={() => router.push('/(enter)/(commet)/tarot')}
+          >
             <View style={styles.serviceIconContainer}>
               <Ionicons name="calendar-outline" size={28} color="#5142e6" />
             </View>
@@ -115,7 +113,7 @@ const index: React.FC = () => {
         {/* Daily Quote */}
         <View style={styles.quoteContainer}>
           <View style={styles.quoteIconContainer}>
-            <Ionicons name="quote" size={20} color="#fff" />
+            <Ionicons name="swap-vertical" size={20} color="#fff" />
           </View>
           <Text style={styles.quoteText}>{dailyQuote.text}</Text>
           <Text style={styles.quoteAuthor}>{dailyQuote.author}</Text>

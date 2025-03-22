@@ -32,7 +32,7 @@ const interpreters = [
     name: 'Ayşe Yılmaz',
     title: 'Rüya Uzmanı',
     rating: 4.9,
-    image: require('@/assets/images/interpreter1'),
+    image: require('@/assets/images/interpreter1.png'),
     responseTime: '30 dk içinde',
     price: '₺120',
   },
@@ -41,7 +41,7 @@ const interpreters = [
     name: 'Mehmet Kaya',
     title: 'Sufi Yorumcu',
     rating: 4.8,
-    image: require('@/assets/images/interpreter1'),
+    image: require('@/assets/images/interpreter1.png'),
     responseTime: '1 saat içinde',
     price: '₺150',
   },
@@ -50,7 +50,7 @@ const interpreters = [
     name: 'Zeynep Demir',
     title: 'Psikolojik Analist',
     rating: 4.7,
-    image: require('@/assets/images/interpreter1'),
+    image: require('@/assets/images/interpreter1.png'),
     responseTime: '45 dk içinde',
     price: '₺135',
   },
@@ -168,9 +168,11 @@ const index: React.FC = () => {
                 onPress={() => setSelectedInterpreter(interpreter.id)}
               >
                 <View style={styles.interpreterImageContainer}>
-                  <View style={styles.interpreterImagePlaceholder}>
-                    <Ionicons name="person" size={30} color="#ccc" />
-                  </View>
+                  <Image
+                    source={interpreter.image}
+                    style={styles.interpreterImage}
+                    resizeMode="cover"
+                  />
                 </View>
 
                 <View style={styles.interpreterInfo}>
@@ -364,13 +366,13 @@ const styles = StyleSheet.create({
   interpreterImageContainer: {
     marginRight: 12,
   },
-  interpreterImagePlaceholder: {
+  interpreterImage: {
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#f0f0f0',
   },
   interpreterInfo: {
     flex: 1,
