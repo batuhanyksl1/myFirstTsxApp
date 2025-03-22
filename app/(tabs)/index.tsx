@@ -13,8 +13,7 @@ import {
 
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import Header from '@/components/atomic/Header';
-import StatusBar from '@/components/atomic/StatusBar';
+import { Header, StatusBar } from '@/components';
 import WelcomeBanner from '@/components/atomic/Banner';
 import DailyQoute from '@/components/atomic/Qoute';
 

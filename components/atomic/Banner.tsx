@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default function Banner() {
+export function Banner() {
   const getWelcomeMessage = () => {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) return 'Günaydın';
