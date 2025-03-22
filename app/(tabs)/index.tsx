@@ -58,7 +58,7 @@ const index: React.FC = () => {
         {/* Search Bar */}
 
         {/* Welcome Banner */}
-        <View style={styles.welcomeBanner}>
+       <View style={styles.welcomeBanner}>
           <View>
             <Text style={styles.welcomeTitle}>{getWelcomeMessage()}</Text>
             <Text style={styles.welcomeSubtitle}>
@@ -71,7 +71,7 @@ const index: React.FC = () => {
         <View style={styles.servicesGrid}>
           <TouchableOpacity
             style={styles.serviceCard}
-            onPress={() => router.push('/(enter)/(commet)')}
+            onPress={() => router.push('/(commet)')}
           >
             <View style={styles.serviceIconContainer}>
               <Ionicons name="moon-outline" size={28} color="#5142e6" />
@@ -81,7 +81,7 @@ const index: React.FC = () => {
 
           <TouchableOpacity
             style={styles.serviceCard}
-            onPress={() => router.push('/(enter)/(commet)/consultation')}
+            onPress={() => router.push('/(commet)/consultation')}
           >
             <View style={styles.serviceIconContainer}>
               <Ionicons name="person-outline" size={28} color="#5142e6" />
@@ -90,7 +90,7 @@ const index: React.FC = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => router.push('/(enter)/(commet)/horoscope')}
+            onPress={() => router.push('/(commet)/horoscope')}
             style={styles.serviceCard}
           >
             <View style={styles.serviceIconContainer}>
@@ -101,7 +101,7 @@ const index: React.FC = () => {
 
           <TouchableOpacity
             style={styles.serviceCard}
-            onPress={() => router.push('/(enter)/(commet)/tarot')}
+            onPress={() => router.push('/(commet)/tarot')}
           >
             <View style={styles.serviceIconContainer}>
               <Ionicons name="calendar-outline" size={28} color="#5142e6" />
